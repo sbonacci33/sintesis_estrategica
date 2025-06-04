@@ -11,10 +11,11 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
     
+# Indices para optimizar las búsquedas de informes
 class Informe(models.Model):
-    titulo = models.CharField(max_length=200)
-    autor = models.CharField(max_length=100)
-    resumen = models.TextField()
+    titulo = models.CharField(max_length=200, db_index=True)
+    autor = models.CharField(max_length=100, db_index=True)
+    resumen = models.TextField(db_index=True)
     contenido = models.TextField()
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     fecha = models.DateField(auto_now_add=True)
@@ -25,8 +26,9 @@ class Informe(models.Model):
     def __str__(self):
         return self.titulo
 
+# Registro de términos buscados por los usuarios
 class ConsultaUsuario(models.Model):
-    termino_buscado = models.CharField(max_length=100)
+    termino_buscado = models.CharField(max_length=100, db_index=True)
     fecha = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
