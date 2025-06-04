@@ -3,6 +3,10 @@ from django.db import models
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100)
     descripcion = models.TextField()
+
+    class Meta:
+        ordering = ["nombre"]
+        verbose_name_plural = "categorías"
     
     def __str__(self):
         return self.nombre
@@ -14,6 +18,9 @@ class Informe(models.Model):
     contenido = models.TextField()
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     fecha = models.DateField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-fecha"]
 
     def __str__(self):
         return self.titulo

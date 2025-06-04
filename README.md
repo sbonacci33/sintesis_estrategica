@@ -118,6 +118,17 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+### Variables de entorno
+
+Al ejecutar el proyecto podés definir algunas variables para un despliegue más
+seguro:
+
+- `SECRET_KEY`: clave secreta de Django.
+- `DJANGO_DEBUG`: establecé `False` para desactivar el modo debug.
+- `ALLOWED_HOSTS`: lista de hosts permitidos separada por espacios.
+
+Si no se definen, se usarán valores por defecto pensados para desarrollo.
+
 ---
 
 ## 🔗 Repositorio
