@@ -43,3 +43,13 @@ class Suscriptor(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido} ({self.email})"
 
+
+class PerfilUsuario(models.Model):
+    """Datos adicionales para los usuarios registrados."""
+
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
+    documento = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"Perfil de {self.user.username}"
+

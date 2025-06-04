@@ -15,7 +15,7 @@
         {% for informe in resultados %}
             <div class="list-group-item">
                 <h5 class="mb-1">
-                    <a href="{% url 'detalle_informe' informe.id %}">
+                    <a href="{% url 'detalle_informe' informe.id %}" target="_blank">
                         {{ informe.titulo }}
                     </a>
                 </h5>

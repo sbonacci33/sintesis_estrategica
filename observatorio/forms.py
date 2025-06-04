@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import Categoria, Informe, ConsultaUsuario, Suscriptor
 
 class CategoriaForm(forms.ModelForm):
@@ -40,5 +42,19 @@ class ConsultaUsuarioForm(forms.ModelForm):
     class Meta:
         model = ConsultaUsuario
         fields = '__all__'
+
+
+class CustomUserCreationForm(UserCreationForm):
+    documento = forms.CharField(max_length=50, label="Número de documento")
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = (
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "documento",
+        )
 
 
