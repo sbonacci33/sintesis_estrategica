@@ -1,6 +1,16 @@
 """Vistas principales de la aplicación Observatorio."""
 
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from .models import Informe, Categoria, ConsultaUsuario
 from .forms import InformeForm, SuscriptorForm
 from django.contrib import messages
@@ -11,26 +21,32 @@ def home(request):
     """Página inicial del sitio."""
     return render(request, 'observatorio/home.html')
 
-def crear_informe(request):
-    """Crea un nuevo informe con validación de formulario."""
-    if request.method == 'POST':
-        form = InformeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, '✅ Informe guardado con éxito.')
-            return redirect('crear_informe')  # Redirige a la misma vista
-    else:
-        form = InformeForm()
-    return render(request, 'observatorio/crear_informe.html', {'form': form})
+class InformeCreateView(LoginRequiredMixin, CreateView):
+    """Formulario para crear un nuevo informe."""
 
-def listar_informes(request):
-    """Muestra el listado de informes ordenados por fecha."""
-    informes = (
-        Informe.objects.select_related('categoria')
-        .all()
-        .order_by('-fecha')
-    )
-    return render(request, 'observatorio/listar_informes.html', {'informes': informes})
+    model = Informe
+    form_class = InformeForm
+    template_name = "observatorio/crear_informe.html"
+    success_url = reverse_lazy("listar_informes")
+    login_url = "/accounts/login/"
+
+    def form_valid(self, form):
+        messages.success(self.request, "✅ Informe guardado con éxito.")
+        return super().form_valid(form)
+
+class InformeListView(ListView):
+    """Lista todos los informes."""
+
+    model = Informe
+    template_name = "observatorio/listar_informes.html"
+    context_object_name = "informes"
+
+    def get_queryset(self):
+        return (
+            Informe.objects.select_related("categoria")
+            .all()
+            .order_by("-fecha")
+        )
 
 def buscar_informes(request):
     """Realiza búsquedas y registra los términos ingresados."""
@@ -70,9 +86,34 @@ def suscribirse(request):
         form = SuscriptorForm()
     return render(request, 'observatorio/suscribirse.html', {'form': form})
 
-def detalle_informe(request, informe_id):
-    """Muestra el detalle de un informe específico."""
-    informe = get_object_or_404(
-        Informe.objects.select_related('categoria'), id=informe_id
-    )
-    return render(request, 'observatorio/detalle_informe.html', {'informe': informe})
+class InformeDetailView(DetailView):
+    """Detalle de un informe."""
+
+    model = Informe
+    template_name = "observatorio/detalle_informe.html"
+    context_object_name = "informe"
+    pk_url_kwarg = "informe_id"
+
+    def get_queryset(self):
+        return Informe.objects.select_related("categoria")
+
+
+class InformeUpdateView(LoginRequiredMixin, UpdateView):
+    """Actualiza un informe existente."""
+
+    model = Informe
+    form_class = InformeForm
+    template_name = "observatorio/crear_informe.html"
+    success_url = reverse_lazy("listar_informes")
+    login_url = "/accounts/login/"
+    pk_url_kwarg = "informe_id"
+
+
+class InformeDeleteView(LoginRequiredMixin, DeleteView):
+    """Elimina un informe."""
+
+    model = Informe
+    template_name = "observatorio/informe_confirm_delete.html"
+    success_url = reverse_lazy("listar_informes")
+    login_url = "/accounts/login/"
+    pk_url_kwarg = "informe_id"
