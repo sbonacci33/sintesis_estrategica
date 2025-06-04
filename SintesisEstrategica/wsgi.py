@@ -1,9 +1,9 @@
 """
-WSGI config for SintesisEstrategica project.
+Configuración WSGI para el proyecto SintesisEstrategica.
 
-It exposes the WSGI callable as a module-level variable named ``application``.
+Expone la variable ``application`` de nivel de módulo.
 
-For more information on this file, see
+Para más información sobre este archivo consultá:
 https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
 """
 
