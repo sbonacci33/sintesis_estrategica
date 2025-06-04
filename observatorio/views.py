@@ -11,8 +11,9 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Informe, Categoria, ConsultaUsuario
-from .forms import InformeForm, SuscriptorForm
+from django.contrib.auth import login
+from .models import Informe, Categoria, ConsultaUsuario, PerfilUsuario
+from .forms import InformeForm, SuscriptorForm, CustomUserCreationForm
 from django.contrib import messages
 from django.db.models import Q
 
@@ -20,6 +21,27 @@ from django.db.models import Q
 def home(request):
     """Página inicial del sitio."""
     return render(request, 'observatorio/home.html')
+
+
+def quienes_somos(request):
+    """Muestra información sobre el autor del proyecto."""
+    return render(request, 'observatorio/quienes_somos.html')
+
+
+def signup(request):
+    """Registro de nuevos usuarios."""
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            PerfilUsuario.objects.create(
+                user=user, documento=form.cleaned_data['documento']
+            )
+            login(request, user)
+            return redirect('home')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
 class InformeCreateView(LoginRequiredMixin, CreateView):
     """Formulario para crear un nuevo informe."""
