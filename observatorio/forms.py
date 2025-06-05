@@ -1,7 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Categoria, Informe, ConsultaUsuario, Suscriptor
+from .models import (
+    Categoria,
+    Informe,
+    ConsultaUsuario,
+    Suscriptor,
+    Comentario,
+)
 
 class CategoriaForm(forms.ModelForm):
     class Meta:
@@ -11,13 +17,14 @@ class CategoriaForm(forms.ModelForm):
 class InformeForm(forms.ModelForm):
     class Meta:
         model = Informe
-        fields = ['titulo', 'resumen', 'contenido', 'categoria', 'autor']
+        fields = ['titulo', 'resumen', 'contenido', 'categoria', 'autor', 'pdf']
         widgets = {
             'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título del informe'}),
             'resumen': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Resumen del contenido', 'rows': 3}),
             'contenido': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Texto completo del informe', 'rows': 8}),
             'categoria': forms.Select(attrs={'class': 'form-select'}),
             'autor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Autor/a del informe'}),
+            'pdf': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
 
@@ -56,5 +63,20 @@ class CustomUserCreationForm(UserCreationForm):
             "email",
             "documento",
         )
+
+
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['texto']
+        widgets = {
+            'texto': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'rows': 3,
+                    'placeholder': 'Escribí tu comentario aquí',
+                }
+            )
+        }
 
 

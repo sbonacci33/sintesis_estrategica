@@ -7,6 +7,7 @@ urlpatterns = [
     path('crear/', views.InformeCreateView.as_view(), name='crear_informe'),
     path('informes/', views.InformeListView.as_view(), name='listar_informes'),
     path('buscar/', views.buscar_informes, name='buscar_informes'),
+    path('medios/', views.MedioAmigoListView.as_view(), name='medios'),
     path('suscribirse/', views.suscribirse, name='suscribirse'),
     path('informe/<int:informe_id>/', views.InformeDetailView.as_view(), name='detalle_informe'),
     path('informe/<int:informe_id>/editar/', views.InformeUpdateView.as_view(), name='editar_informe'),

@@ -11,9 +11,9 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'quienes_somos' %}">¿Quiénes somos?</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'listar_informes' %}">Publicaciones</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'buscar_informes' %}">Buscar</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'medios' %}">Medios</a></li>
         <li class="nav-item">
           {% if user.is_authenticated %}
             <a class="nav-link" href="{% url 'logout' %}">Salir</a>
