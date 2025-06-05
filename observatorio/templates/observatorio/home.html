@@ -38,4 +38,60 @@
     </p>
   </div>
 </div>
+
+  <!-- Navegación principal -->
+  <section class="container mt-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+      <div class="col">
+        <div class="card h-100 text-center shadow-sm">
+          <a href="{% url 'listar_informes' %}">
+            <img src="{% static 'images/observatorio_de_contenidos_digitales.png' %}" class="card-img-top" alt="Publicaciones">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Publicaciones</h5>
+            <p class="card-text">Accedé a nuestros informes y análisis.</p>
+            <a href="{% url 'listar_informes' %}" class="btn btn-outline-primary">Ver más</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center shadow-sm">
+          <a href="{% url 'buscar_informes' %}">
+            <img src="{% static 'images/icono.png' %}" class="card-img-top" alt="Buscar">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Buscar informes</h5>
+            <p class="card-text">Encontrá reportes por tema o autor.</p>
+            <a href="{% url 'buscar_informes' %}" class="btn btn-outline-primary">Buscar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center shadow-sm">
+          <a href="{% url 'medios' %}">
+            <img src="{% static 'images/tres_puntos.png' %}" class="card-img-top" alt="Medios Amigos">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Medios Amigos</h5>
+            <p class="card-text">Artículos y entrevistas destacadas.</p>
+            <a href="{% url 'medios' %}" class="btn btn-outline-primary">Ver medios</a>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card h-100 text-center shadow-sm">
+          <a href="{% url 'suscribirse' %}">
+            <img src="{% static 'images/sintesisestrategica.png' %}" class="card-img-top" alt="Newsletter">
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">Newsletter</h5>
+            <p class="card-text">Recibí novedades en tu correo.</p>
+            <a href="{% url 'suscribirse' %}" class="btn btn-outline-primary">Suscribite</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
 {% endblock %}
