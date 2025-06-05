@@ -1,6 +1,7 @@
 {% extends 'observatorio/base.html' %}
 
 {% block title %}Ingresar{% endblock %}
+{% load widget_tweaks %}
 
 {% block content %}
 <div class="container py-5" style="max-width: 400px;">
@@ -10,7 +11,7 @@
     {% for field in form %}
       <div class="mb-3">
         <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field.as_widget(attrs={'class': 'form-control'}) }}
+        {{ field|add_class:"form-control" }}
         {% if field.help_text %}
           <div class="form-text small">{{ field.help_text|safe }}</div>
         {% endif %}
