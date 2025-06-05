@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from .models import (
     Categoria,
     Informe,
@@ -63,6 +65,18 @@ class CustomUserCreationForm(UserCreationForm):
             "email",
             "documento",
         )
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            raise ValidationError(self.error_messages["password_mismatch"], code="password_mismatch")
+        try:
+            validate_password(password2, self.instance)
+        except ValidationError:
+            raise ValidationError("Escribí una contraseña que cumpla con los parámetros.")
+        return password2
 
 
 class ComentarioForm(forms.ModelForm):
