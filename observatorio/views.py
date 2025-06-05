@@ -11,7 +11,7 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .models import (
     Informe,
     Categoria,
@@ -54,6 +54,12 @@ def signup(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+def logout_view(request):
+    """Cierra la sesión actual y redirige al inicio."""
+    logout(request)
+    return redirect('home')
 
 class InformeCreateView(LoginRequiredMixin, CreateView):
     """Formulario para crear un nuevo informe."""
