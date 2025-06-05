@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Informe, Categoria
+from .models import Categoria, Informe
 
 
 class HomeViewTests(TestCase):

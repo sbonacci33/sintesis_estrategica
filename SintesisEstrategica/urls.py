@@ -14,13 +14,15 @@ Incluir otra configuración de URLs
     1. Importá la función include: from django.urls import include, path
     2. Añadí una URL a urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
+
 from observatorio import views as observatorio_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/signup/', observatorio_views.signup, name='signup'),
-    path('', include('observatorio.urls')),  # Rutas de la App
+    path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/signup/", observatorio_views.signup, name="signup"),
+    path("", include("observatorio.urls")),  # Rutas de la App
 ]

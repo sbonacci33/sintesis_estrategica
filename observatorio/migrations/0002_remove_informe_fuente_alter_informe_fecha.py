@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('observatorio', '0001_initial'),
+        ("observatorio", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='informe',
-            name='fuente',
+            model_name="informe",
+            name="fuente",
         ),
         migrations.AlterField(
-            model_name='informe',
-            name='fecha',
+            model_name="informe",
+            name="fecha",
             field=models.DateField(auto_now_add=True),
         ),
     ]

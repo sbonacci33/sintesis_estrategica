@@ -10837,3 +10837,14 @@ section {
   padding-top: 9rem;
   padding-bottom: 9rem;
 }
+
+.section-title {
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  font-family: 'DIN', sans-serif;
+}
+
+.section-title::before {
+  content: "📌 ";
+}

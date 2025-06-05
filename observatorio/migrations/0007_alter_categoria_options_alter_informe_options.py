@@ -6,16 +6,16 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('observatorio', '0006_auto_add_models'),
+        ("observatorio", "0006_auto_add_models"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='categoria',
-            options={'ordering': ['nombre'], 'verbose_name_plural': 'categorías'},
+            name="categoria",
+            options={"ordering": ["nombre"], "verbose_name_plural": "categorías"},
         ),
         migrations.AlterModelOptions(
-            name='informe',
-            options={'ordering': ['-fecha']},
+            name="informe",
+            options={"ordering": ["-fecha"]},
         ),
     ]
