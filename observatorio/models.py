@@ -7,10 +7,10 @@ class Categoria(models.Model):
     class Meta:
         ordering = ["nombre"]
         verbose_name_plural = "categorías"
-    
+
     def __str__(self):
         return self.nombre
-    
+
 # Indices para optimizar las búsquedas de informes
 class Informe(models.Model):
     titulo = models.CharField(max_length=200, db_index=True)
