@@ -106,12 +106,15 @@ venv\Scripts\activate      # En Windows
 pip install django
 ```
 
-4. Ejecutá las migraciones:
+4. Generá y aplicá las migraciones:
 
 ```bash
+python manage.py makemigrations
 python manage.py migrate
 ```
-Recordá aplicar las migraciones incluidas para los modelos PerfilUsuario, Comentario y MedioAmigo. Esto evita errores al acceder a las secciones de informes y medios.
+Es fundamental correr estos comandos cada vez que se modifican los modelos 
+(incluidos **PerfilUsuario**, **Comentario** y **MedioAmigo**) para evitar
+errores como "no such column" al acceder a las secciones de informes o medios.
 
 
 5. Corré el servidor:
