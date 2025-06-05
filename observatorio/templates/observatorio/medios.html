@@ -2,24 +2,37 @@
 {% block title %}Medios amigos{% endblock %}
 {% block content %}
 <div class="container my-5">
+  <div class="mb-4 text-center">
+    <h2><i class="bi bi-newspaper me-2"></i>Medios Amigos</h2>
+  </div>
   <p class="fs-5">
-    En este espacio reunimos artículos, informes y entrevistas publicadas en medios de comunicación que dialogan con los temas que investigamos y trabajamos en Síntesis Estratégica.
+    En este espacio reunimos artículos, informes y entrevistas publicadas en medios de comunicación que dialogan con los temas que investigamos y trabajamos en <strong>Síntesis Estratégica</strong>.
     Son contenidos valiosos que amplían el análisis, aportan miradas complementarias y ayudan a comprender mejor los fenómenos comunicacionales que atraviesan nuestro presente digital.
-    Creemos en el valor del intercambio, la colaboración y la construcción colectiva de conocimiento. Por eso, este archivo de medios amigos funciona como un puente con otros proyectos periodísticos y académicos que admiramos y con los que compartimos preocupaciones y búsquedas.
+    Creemos en el valor del intercambio, la colaboración y la construcción colectiva de conocimiento.
   </p>
+
   {% if medios %}
-    <ul class="list-group">
+    <div class="row">
       {% for medio in medios %}
-        <li class="list-group-item">
-          <h5 class="mb-1"><a href="{{ medio.enlace }}" target="_blank">{{ medio.titulo }}</a></h5>
-          {% if medio.resumen %}
-            <p class="mb-1">{{ medio.resumen }}</p>
-          {% endif %}
-        </li>
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{{ medio.enlace }}" target="_blank" class="text-decoration-none text-dark">
+                  {{ medio.titulo }}
+                </a>
+              </h5>
+              {% if medio.resumen %}
+                <p class="card-text text-muted">{{ medio.resumen }}</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
       {% endfor %}
-    </ul>
+    </div>
   {% else %}
-    <p class="text-muted">Pronto tendremos contenidos para compartirles.</p>
+    <p class="text-muted mt-4">Pronto tendremos contenidos para compartirles.</p>
   {% endif %}
 </div>
 {% endblock %}
+
