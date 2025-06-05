@@ -1,65 +1,61 @@
 """Vistas principales de la aplicación Observatorio."""
 
-from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth import login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (
-    ListView,
-    DetailView,
     CreateView,
-    UpdateView,
     DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
 )
-from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.contrib.auth import login, logout
+from .forms import ComentarioForm, CustomUserCreationForm, InformeForm, SuscriptorForm
 from .models import (
-    Informe,
     Categoria,
-    ConsultaUsuario,
-    PerfilUsuario,
     Comentario,
+    ConsultaUsuario,
+    Informe,
     MedioAmigo,
+    PerfilUsuario,
 )
-from .forms import (
-    InformeForm,
-    SuscriptorForm,
-    CustomUserCreationForm,
-    ComentarioForm,
-)
-from django.contrib import messages
-from django.db.models import Q
 
 
 def home(request):
     """Página inicial del sitio."""
-    return render(request, 'observatorio/home.html')
+    return render(request, "observatorio/home.html")
 
 
 def sobre_sintesis(request):
     """Muestra información institucional del proyecto."""
-    return render(request, 'observatorio/sobre_sintesis.html')
+    return render(request, "observatorio/sobre_sintesis.html")
 
 
 def signup(request):
     """Registro de nuevos usuarios."""
-    if request.method == 'POST':
+    if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             PerfilUsuario.objects.create(
-                user=user, documento=form.cleaned_data['documento']
+                user=user, documento=form.cleaned_data["documento"]
             )
             login(request, user)
-            return redirect('home')
+            return redirect("home")
     else:
         form = CustomUserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})
+    return render(request, "registration/signup.html", {"form": form})
 
 
 def logout_view(request):
     """Cierra la sesión actual y redirige al inicio."""
     logout(request)
-    return redirect('home')
+    return redirect("home")
+
 
 class InformeCreateView(LoginRequiredMixin, CreateView):
     """Formulario para crear un nuevo informe."""
@@ -74,6 +70,7 @@ class InformeCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, "✅ Informe guardado con éxito.")
         return super().form_valid(form)
 
+
 class InformeListView(ListView):
     """Lista todos los informes."""
 
@@ -82,27 +79,24 @@ class InformeListView(ListView):
     context_object_name = "informes"
 
     def get_queryset(self):
-        return (
-            Informe.objects.select_related("categoria")
-            .all()
-            .order_by("-fecha")
-        )
+        return Informe.objects.select_related("categoria").all().order_by("-fecha")
+
 
 def buscar_informes(request):
     """Realiza búsquedas y registra los términos ingresados."""
     resultados = []
     termino = ""
-    if request.method == 'GET':
-        termino = request.GET.get('termino', '').strip()
+    if request.method == "GET":
+        termino = request.GET.get("termino", "").strip()
         if termino:
             resultados = (
-                Informe.objects.select_related('categoria')
+                Informe.objects.select_related("categoria")
                 .filter(
                     Q(titulo__icontains=termino)
                     | Q(resumen__icontains=termino)
                     | Q(autor__icontains=termino)
                 )
-                .order_by('-fecha')
+                .order_by("-fecha")
             )
 
             # Guarda la búsqueda
@@ -110,21 +104,23 @@ def buscar_informes(request):
 
     return render(
         request,
-        'observatorio/buscar.html',
-        {'resultados': resultados, 'termino': termino},
+        "observatorio/buscar.html",
+        {"resultados": resultados, "termino": termino},
     )
+
 
 def suscribirse(request):
     """Gestiona el formulario de suscripción."""
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SuscriptorForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, "✅ ¡Te suscribiste con éxito!")
-            return redirect('home')
+            return redirect("home")
     else:
         form = SuscriptorForm()
-    return render(request, 'observatorio/suscribirse.html', {'form': form})
+    return render(request, "observatorio/suscribirse.html", {"form": form})
+
 
 class InformeDetailView(DetailView):
     """Detalle de un informe."""

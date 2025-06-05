@@ -8,36 +8,65 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Categoria',
+            name="Categoria",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=100)),
-                ('descripcion', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=100)),
+                ("descripcion", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='ConsultaUsuario',
+            name="ConsultaUsuario",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('termino_buscado', models.CharField(max_length=100)),
-                ('fecha', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("termino_buscado", models.CharField(max_length=100)),
+                ("fecha", models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Informe',
+            name="Informe",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('titulo', models.CharField(max_length=200)),
-                ('resumen', models.TextField()),
-                ('contenido', models.TextField()),
-                ('fuente', models.URLField(blank=True)),
-                ('fecha', models.DateField()),
-                ('categoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='observatorio.categoria')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("titulo", models.CharField(max_length=200)),
+                ("resumen", models.TextField()),
+                ("contenido", models.TextField()),
+                ("fuente", models.URLField(blank=True)),
+                ("fecha", models.DateField()),
+                (
+                    "categoria",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="observatorio.categoria",
+                    ),
+                ),
             ],
         ),
     ]

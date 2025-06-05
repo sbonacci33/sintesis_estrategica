@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('observatorio', '0002_remove_informe_fuente_alter_informe_fecha'),
+        ("observatorio", "0002_remove_informe_fuente_alter_informe_fecha"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Suscriptor',
+            name="Suscriptor",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=100)),
-                ('apellido', models.CharField(max_length=100)),
-                ('email', models.EmailField(max_length=254, unique=True)),
-                ('fecha_suscripcion', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=100)),
+                ("apellido", models.CharField(max_length=100)),
+                ("email", models.EmailField(max_length=254, unique=True)),
+                ("fecha_suscripcion", models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]
