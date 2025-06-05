@@ -111,6 +111,8 @@ pip install django
 ```bash
 python manage.py migrate
 ```
+Recordá aplicar las migraciones incluidas para los modelos PerfilUsuario, Comentario y MedioAmigo. Esto evita errores al acceder a las secciones de informes y medios.
+
 
 5. Corré el servidor:
 
