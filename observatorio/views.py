@@ -12,8 +12,20 @@ from django.views.generic import (
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib.auth import login
-from .models import Informe, Categoria, ConsultaUsuario, PerfilUsuario
-from .forms import InformeForm, SuscriptorForm, CustomUserCreationForm
+from .models import (
+    Informe,
+    Categoria,
+    ConsultaUsuario,
+    PerfilUsuario,
+    Comentario,
+    MedioAmigo,
+)
+from .forms import (
+    InformeForm,
+    SuscriptorForm,
+    CustomUserCreationForm,
+    ComentarioForm,
+)
 from django.contrib import messages
 from django.db.models import Q
 
@@ -119,6 +131,25 @@ class InformeDetailView(DetailView):
     def get_queryset(self):
         return Informe.objects.select_related("categoria")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comentarios"] = self.object.comentarios.select_related("usuario")
+        if self.request.user.is_authenticated:
+            context["form_comentario"] = ComentarioForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if request.user.is_authenticated:
+            form = ComentarioForm(request.POST)
+            if form.is_valid():
+                comentario = form.save(commit=False)
+                comentario.informe = self.object
+                comentario.usuario = request.user
+                comentario.save()
+                messages.success(request, "Comentario agregado")
+        return redirect("detalle_informe", informe_id=self.object.id)
+
 
 class InformeUpdateView(LoginRequiredMixin, UpdateView):
     """Actualiza un informe existente."""
@@ -139,3 +170,11 @@ class InformeDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("listar_informes")
     login_url = "/accounts/login/"
     pk_url_kwarg = "informe_id"
+
+
+class MedioAmigoListView(ListView):
+    """Lista de notas y enlaces de medios externos."""
+
+    model = MedioAmigo
+    template_name = "observatorio/medios.html"
+    context_object_name = "medios"

@@ -17,6 +17,7 @@ class Informe(models.Model):
     autor = models.CharField(max_length=100, db_index=True)
     resumen = models.TextField(db_index=True)
     contenido = models.TextField()
+    pdf = models.FileField(upload_to="informes_pdf/", blank=True, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     fecha = models.DateField(auto_now_add=True)
 
@@ -52,4 +53,37 @@ class PerfilUsuario(models.Model):
 
     def __str__(self):
         return f"Perfil de {self.user.username}"
+
+
+class Comentario(models.Model):
+    """Comentarios dejados por usuarios en los informes."""
+
+    informe = models.ForeignKey(
+        Informe, on_delete=models.CASCADE, related_name="comentarios"
+    )
+    usuario = models.ForeignKey("auth.User", on_delete=models.CASCADE)
+    texto = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-fecha"]
+
+    def __str__(self):
+        return f"Comentario de {self.usuario.username}"
+
+
+class MedioAmigo(models.Model):
+    """Enlaces o resúmenes de medios externos."""
+
+    titulo = models.CharField(max_length=200)
+    enlace = models.URLField()
+    resumen = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ["titulo"]
+        verbose_name = "medio amigo"
+        verbose_name_plural = "medios amigos"
+
+    def __str__(self):
+        return self.titulo
 
