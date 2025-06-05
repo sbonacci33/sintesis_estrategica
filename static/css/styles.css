@@ -10845,6 +10845,3 @@ section {
   font-family: 'DIN', sans-serif;
 }
 
-.section-title::before {
-  content: "📌 ";
-}
