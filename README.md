@@ -1,4 +1,4 @@
-# TuPrimeraPagina-Bonacci
+# Síntesis Estratégica
 
 Este es un proyecto desarrollado en el marco del curso **Python Flex de Coderhouse**. El objetivo fue construir una primera web en Django, aplicando el patrón **MVT (Model-View-Template)** con herencia de plantillas y funcionalidades completas de carga, visualización y búsqueda de datos.
 
@@ -88,8 +88,8 @@ Soy **Santiago Bonacci**, comunicador social, investigador y docente, en formaci
 1. Cloná el repositorio:
 
 ```bash
-git clone https://github.com/sbonacci33/TuPrimeraPagina-Bonacci.git
-cd TuPrimeraPagina-Bonacci
+git clone https://github.com/sbonacci33/SintesisEstrategica.git
+cd SintesisEstrategica
 ```
 
 2. Activá un entorno virtual (recomendado):
@@ -133,7 +133,7 @@ Si no se definen, se usarán valores por defecto pensados para desarrollo.
 
 ## 🔗 Repositorio
 
-📍 GitHub: [TuPrimeraPagina-Bonacci](https://github.com/sbonacci33/TuPrimeraPagina-Bonacci)
+📍 GitHub: [SintesisEstrategica](https://github.com/sbonacci33/SintesisEstrategica)
 
 ---
 
