@@ -1,30 +1,30 @@
 {% extends 'observatorio/base.html' %}
 {% load static %}
 
-{% block title %}¿Quiénes somos?{% endblock %}
+{% block title %}Sobre Síntesis{% endblock %}
 
 {% block content %}
 <div class="container py-3 px-4" style="max-width: 960px;">
 
+  <!-- Logo (igual que en home) -->
+  <div class="text-center mt-5">
+    <img src="{% static 'images/sinest.png' %}" alt="Logo Síntesis Estratégica" class="img-fluid mb-4" style="max-height: 200px;">
+  </div>
+
   <!-- SOBRE MÍ -->
-  <section class="mb-4">
-    <div class="text-center mb-3">
-      <img src="{% static 'images/sintesisestrategica.png' %}" alt="Logo Síntesis Estratégica"
-           class="img-fluid" style="max-height: 180px; margin-bottom: 10px;">
-    </div>
-    <h2 class="text-center mb-3">
-      <i class="fas fa-user-circle text-secondary"></i> Sobre mí
-    </h2>
-    <p class="lead text-center">
+  <div class="container px-4 text-center py-5">
+    <h1 class="fw-bolder">Sobre mí</h1>
+  </div>
+    <p class="lead text-right">
       Soy <strong>Santiago Bonacci</strong>, comunicador, docente y analista de contenidos digitales. Mi trabajo se ubica en la intersección entre la <strong>educación, la investigación, la estrategia</strong> y la <strong>producción digital</strong>.
     </p>
-    <p>
+    <p class="lead text-right">
       Me formé como <strong>Licenciado en Comunicación Social</strong> en la Universidad Nacional de Córdoba y actualmente curso el <strong>Doctorado en Estudios Sociales de América Latina</strong>. A lo largo de mi recorrido profesional, trabajé en medios, instituciones educativas, equipos de investigación y espacios legislativos, integrando la comunicación a distintos contextos sociales y políticos.
     </p>
-    <p>
+    <p class="lead text-right">
       Coordino <strong>procesos de comunicación institucional</strong>, edito contenidos, dicto clases y analizo métricas. En los últimos años, integré herramientas como <strong>Excel avanzado, Power BI, Python y Tableau</strong> para fortalecer mis capacidades como comunicador en el entorno digital.
     </p>
-    <p>
+    <p class="lead text-right">
       Mi propósito profesional es claro: <strong>vincular pensamiento crítico, sensibilidad narrativa y evidencia empírica</strong> para diseñar estrategias comunicacionales más inteligentes, humanas y transformadoras.
     </p>
   </section>
@@ -32,24 +32,24 @@
   <hr class="my-4">
 
   <!-- SÍNTESIS ESTRATÉGICA -->
-  <section class="mb-4">
-    <div class="text-center mb-3">
-      <img src="{% static 'images/observatorio_de_contenidos_digitales.png' %}" alt="Observatorio de Contenidos Digitales"
-           class="img-fluid" style="max-height: 150px; margin-bottom: 10px;">
+
+    <!-- Logo (de tres puntos) -->
+  <div class="text-center mt-5">
+    <img src="{% static 'images/tres_puntos.png' %}" alt="Logo Síntesis Estratégica" class="img-fluid mb-4" style="max-height: 100px;">
+  </div>
+
+
+    <div class="container px-4 text-center py-5">
+      <h1 class="fw-bolder">Síntesis Estratégica</h1>
     </div>
-    <h2 class="text-center mb-3">
-      <i class="fas fa-lightbulb text-secondary"></i> Síntesis Estratégica
-    </h2>
-    <p class="lead text-center">
-      Un observatorio de contenidos digitales para <strong>analizar, comprender y actuar</strong> en el ecosistema comunicacional contemporáneo.
-    </p>
-    <p>
+
+    <p class="lead text-right">
       <strong>Síntesis Estratégica</strong> nace de mi recorrido personal y de la necesidad de crear un espacio donde confluyan <strong>análisis, datos y comunicación estratégica</strong>. Es una iniciativa independiente que combina experiencia profesional, mirada crítica y vocación pedagógica.
     </p>
-    <p>
+    <p class="lead text-right">
       Desde este observatorio desarrollo <strong>informes, diagnósticos, tableros de métricas y propuestas comunicacionales</strong> orientadas a instituciones, medios, docentes, emprendedores y equipos de trabajo que buscan mejorar sus decisiones y narrativas.
     </p>
-    <p>
+    <p class="lead text-right">
       Para pensar el futuro, necesitamos comprender lo que hoy circula, se consume y se transforma en las redes. <strong>Síntesis Estratégica</strong> apuesta a <strong>generar conocimiento útil, aplicable y situado</strong>, sin perder de vista el contexto social, cultural y político en el que nos comunicamos.
     </p>
   </section>

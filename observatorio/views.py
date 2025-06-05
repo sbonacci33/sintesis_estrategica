@@ -35,9 +35,9 @@ def home(request):
     return render(request, 'observatorio/home.html')
 
 
-def quienes_somos(request):
-    """Muestra información sobre el autor del proyecto."""
-    return render(request, 'observatorio/quienes_somos.html')
+def sobre_sintesis(request):
+    """Muestra información institucional del proyecto."""
+    return render(request, 'observatorio/sobre_sintesis.html')
 
 
 def signup(request):
