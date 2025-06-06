@@ -15,6 +15,10 @@
             <p class="text-muted">Iniciá sesión para descargar el informe.</p>
         {% endif %}
     {% endif %}
+    {% if user.is_superuser %}
+        <a href="{% url 'editar_informe' informe.id %}" class="btn btn-warning me-2">Editar</a>
+        <a href="{% url 'eliminar_informe' informe.id %}" class="btn btn-danger">Eliminar</a>
+    {% endif %}
     <h4 class="mt-4">Comentarios</h4>
     {% if comentarios %}
         <ul class="list-group mb-3">
