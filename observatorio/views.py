@@ -3,6 +3,10 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from decouple import config
+import openai
+from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -23,6 +27,8 @@ from .models import (
     MedioAmigo,
     PerfilUsuario,
 )
+
+openai.api_key = config("OPENAI_API_KEY")
 
 
 def home(request):
@@ -189,6 +195,22 @@ class MedioAmigoListView(ListView):
 
 
 def consulta_ia(request):
-    """Vista simple para la consulta a la IA."""
+    """Consulta a la IA y devuelve la respuesta."""
 
-    return render(request, "observatorio/consulta_ia.html")
+    respuesta = None
+    if request.method == "POST":
+        pregunta = request.POST.get("pregunta")
+        if pregunta:
+            try:
+                completion = openai.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": "Sos un asistente experto en comunicación y estrategias digitales."},
+                        {"role": "user", "content": pregunta},
+                    ],
+                )
+                respuesta = completion.choices[0].message.content
+            except Exception as e:
+                respuesta = f"⚠️ Error al consultar la IA: {str(e)}"
+
+    return render(request, "observatorio/consulta_ia.html", {"respuesta": respuesta})
