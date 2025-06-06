@@ -2,7 +2,7 @@
 
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -153,7 +153,7 @@ class InformeDetailView(DetailView):
         return redirect("detalle_informe", informe_id=self.object.id)
 
 
-class InformeUpdateView(LoginRequiredMixin, UpdateView):
+class InformeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     """Actualiza un informe existente."""
 
     model = Informe
@@ -163,8 +163,11 @@ class InformeUpdateView(LoginRequiredMixin, UpdateView):
     login_url = "/accounts/login/"
     pk_url_kwarg = "informe_id"
 
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class InformeDeleteView(LoginRequiredMixin, DeleteView):
+
+class InformeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """Elimina un informe."""
 
     model = Informe
@@ -172,6 +175,9 @@ class InformeDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("listar_informes")
     login_url = "/accounts/login/"
     pk_url_kwarg = "informe_id"
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 class MedioAmigoListView(ListView):

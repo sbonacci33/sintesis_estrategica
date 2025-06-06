@@ -17,13 +17,14 @@
         <li class="nav-item"><a class="nav-link" href="{% url 'buscar_informes' %}">Buscar</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'medios' %}">Medios</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'suscribirse' %}">Newsletter</a></li>
-        <li class="nav-item">
-          {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'logout_user' %}">Salir</a>
-          {% else %}
-            <a class="nav-link" href="{% url 'login' %}">Ingresar</a>
-          {% endif %}
-        </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item d-flex align-items-center">
+            <span class="navbar-text text-white me-2">Hola, {{ user.username }}</span>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'logout_user' %}">Salir</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Ingresar</a></li>
+        {% endif %}
       </ul>
     </div>
   </div>
