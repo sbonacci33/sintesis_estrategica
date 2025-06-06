@@ -186,3 +186,9 @@ class MedioAmigoListView(ListView):
     model = MedioAmigo
     template_name = "observatorio/medios.html"
     context_object_name = "medios"
+
+
+def consulta_ia(request):
+    """Vista simple para la consulta a la IA."""
+
+    return render(request, "observatorio/consulta_ia.html")
