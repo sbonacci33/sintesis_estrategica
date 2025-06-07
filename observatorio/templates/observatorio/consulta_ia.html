@@ -1,17 +1,8 @@
-{% extends "observatorio/base.html" %}
-{% block title %}Consulta a la IA{% endblock %}
-
+{% extends 'observatorio/base.html' %}
+{% block title %}IA - Síntesis Estratégica{% endblock %}
 {% block content %}
-<div class="container py-5" style="max-width: 700px;">
-  <h2 class="section-title mb-4">Consultá a la IA</h2>
-
-  <div class="card shadow-sm p-4 text-center">
-    <h5 class="fw-bold text-warning mb-2">🛠 Página en construcción</h5>
-    <p class="fs-5">
-      Muy pronto vas a poder consultar directamente a nuestra IA desde esta página.<br>
-      Estamos trabajando para ofrecerte una herramienta de consulta personalizada basada en inteligencia artificial.
-    </p>
-    <p class="mt-3 text-muted fst-italic">¡Volvé pronto para descubrirla!</p>
-  </div>
+<div class="container my-5 text-center">
+  <h2 class="mb-4">Asistente IA</h2>
+  <p class="lead text-muted">{{ respuesta }}</p>
 </div>
 {% endblock %}

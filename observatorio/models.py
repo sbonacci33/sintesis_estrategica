@@ -83,6 +83,7 @@ class MedioAmigo(models.Model):
     titulo = models.CharField(max_length=200)
     autor = models.CharField(max_length=100)
     fecha = models.DateField()
+    medio = models.CharField(max_length=150)  
     enlace = models.URLField()
     resumen = models.TextField(blank=True)
 

@@ -1,7 +1,7 @@
 """Vistas principales de la aplicación Observatorio."""
 
 from django.contrib import messages
-from django.contrib.auth import login, logout
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
@@ -99,12 +99,6 @@ def signup(request):
     else:
         form = CustomUserCreationForm()
     return render(request, "registration/signup.html", {"form": form})
-
-
-def logout_view(request):
-    """Cierra la sesión actual y redirige al inicio."""
-    logout(request)
-    return redirect("home")
 
 
 class InformeCreateView(LoginRequiredMixin, CreateView):
@@ -256,22 +250,6 @@ class MedioAmigoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 
 def consulta_ia(request):
-    """Consulta a la IA y devuelve la respuesta."""
-
-    respuesta = None
-    if request.method == "POST":
-        pregunta = request.POST.get("pregunta")
-        if pregunta:
-            try:
-                completion = openai.chat.completions.create(
-                    model="gpt-3.5-turbo",
-                    messages=[
-                        {"role": "system", "content": "Sos un asistente experto en comunicación y estrategias digitales."},
-                        {"role": "user", "content": pregunta},
-                    ],
-                )
-                respuesta = completion.choices[0].message.content
-            except Exception as e:
-                respuesta = f"⚠️ Error al consultar la IA: {str(e)}"
-
-    return render(request, "observatorio/consulta_ia.html", {"respuesta": respuesta})
+    """Espacio reservado para futura integración con IA."""
+    mensaje = "🚧 Esta funcionalidad estará disponible próximamente. Estamos trabajando en ello."
+    return render(request, "observatorio/consulta_ia.html", {"respuesta": mensaje})

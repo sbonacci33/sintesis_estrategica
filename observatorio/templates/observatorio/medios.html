@@ -1,14 +1,15 @@
 {% extends 'observatorio/base.html' %}
 {% block title %}Notas e informes publicadas en diferentes medios{% endblock %}
+
 {% block content %}
 <div class="container my-5">
   <div class="mb-4 text-center">
     <h2 class="section-title">Medios Amigos</h2>
   </div>
+
   <p class="fs-5">
-    En este espacio reunimos artículos, informes y entrevistas publicadas en medios de comunicación que dialogan con los temas que investigamos y trabajamos en <strong>Síntesis Estratégica</strong>.
-    Son contenidos valiosos que amplían el análisis, aportan miradas complementarias y ayudan a comprender mejor los fenómenos comunicacionales que atraviesan nuestro presente digital.
-    Creemos en el valor del intercambio, la colaboración y la construcción colectiva de conocimiento.
+    En este espacio reunimos artículos, informes y entrevistas publicadas en medios de comunicación que dialogan con los temas que investigamos en <strong>Síntesis Estratégica</strong>.
+    Son contenidos valiosos que amplían el análisis y ayudan a comprender mejor nuestro presente digital.
   </p>
 
   {% if user.is_superuser %}
@@ -20,28 +21,27 @@
   {% endif %}
 
   {% if medios %}
-    <div class="row">
-      {% for medio in medios %}
-        <div class="col-md-6 mb-4">
-          <div class="card h-100 shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">
-                <a href="{{ medio.enlace }}" target="_blank" class="text-decoration-none text-dark">
-                  {{ medio.titulo }}
-                </a>
-              </h5>
-              <p class="text-muted mb-1">{{ medio.autor }} - {{ medio.fecha }}</p>
-              <div class="ratio ratio-16x9">
-                <iframe src="{{ medio.enlace }}" title="{{ medio.titulo }}" allowfullscreen></iframe>
-              </div>
+  <div class="row">
+    {% for medio in medios %}
+      <div class="col-md-6 mb-4">
+        <div class="card shadow-sm h-100 border-0">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ medio.titulo }}</h5>
+            <p class="text-muted mb-2">{{ medio.autor }} — {{ medio.fecha|date:"d/m/Y" }}</p>
+
+            <div class="mt-auto">
+              <a href="{{ medio.enlace }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm mt-2">
+                <i class="bi bi-box-arrow-up-right"></i> Ver nota completa
+              </a>
             </div>
           </div>
         </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <p class="text-muted mt-4">Pronto tendremos contenidos para compartirles.</p>
-  {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-muted mt-4">Pronto tendremos contenidos para compartirles.</p>
+{% endif %}
+
 </div>
 {% endblock %}
-
