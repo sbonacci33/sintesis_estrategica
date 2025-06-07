@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from decouple import config
-import openai
+
 from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import redirect, render
@@ -28,7 +28,13 @@ from .models import (
     PerfilUsuario,
 )
 
-openai.api_key = config("OPENAI_API_KEY")
+@login_required
+def ver_perfil(request):
+    perfil = getattr(request.user, "perfilusuario", None)
+    return render(request, "observatorio/perfil.html", {
+        "usuario": request.user,
+        "perfil": perfil,
+    })
 
 
 def home(request):
@@ -47,9 +53,8 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            PerfilUsuario.objects.create(
-                user=user, documento=form.cleaned_data["documento"]
-            )
+            PerfilUsuario.objects.create(user=user)  # ✔️ creación correcta del perfil
+            messages.success(request, "✅ Usuario registrado con éxito.")
             login(request, user)
             return redirect("home")
     else:

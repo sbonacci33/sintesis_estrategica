@@ -26,12 +26,21 @@
         </li>
         <li class="nav-item"><a class="nav-link" href="{% url 'suscribirse' %}">Newsletter</a></li>
         {% if user.is_authenticated %}
-          <li class="nav-item d-flex align-items-center">
-            <span class="navbar-text mx-2">|</span>
-            <span class="navbar-text text-white">Bienvenido, {{ user.username }}</span>
-            <span class="navbar-text mx-2">|</span>
-            <a class="nav-link d-inline p-0" href="{% url 'logout' %}">Salir</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle"></i> {{ user.username }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
+              <li><a class="dropdown-item" href="{% url 'ver_perfil' %}"><i class="bi bi-person"></i> Mi perfil</a></li>
+              <li>
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</button>
+                </form>
+              </li>
+            </ul>
           </li>
+
         {% else %}
           <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Ingresar</a></li>
         {% endif %}

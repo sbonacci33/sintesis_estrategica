@@ -1,0 +1,47 @@
+{% extends 'observatorio/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-lg rounded-4 p-4">
+    <h2 class="mb-4 text-center text-primary">
+      <i class="bi bi-person-circle me-2"></i> Mi perfil
+    </h2>
+
+    <div class="row g-4">
+      <!-- Columna: Datos del usuario -->
+      <div class="col-md-6">
+        <h5 class="text-success"><i class="bi bi-person"></i> Cuenta</h5>
+        <p><strong>Usuario:</strong> {{ usuario.username }}</p>
+        <p><strong>Email:</strong> {{ usuario.email }}</p>
+
+        <a href="{% url 'password_change' %}" class="btn btn-outline-primary">
+          <i class="bi bi-key"></i> Cambiar contraseña
+        </a>
+      </div>
+
+      <!-- Columna: Datos adicionales -->
+      <div class="col-md-6">
+        <h5 class="text-success"><i class="bi bi-info-circle"></i> Perfil</h5>
+
+        {% if perfil %}
+          {% if perfil.biografia %}
+            <p><strong>Biografía:</strong><br>{{ perfil.biografia }}</p>
+          {% else %}
+            <p class="text-muted">No completaste tu biografía.</p>
+          {% endif %}
+
+          {% if perfil.fecha_nacimiento %}
+            <p><strong>Fecha de nacimiento:</strong> {{ perfil.fecha_nacimiento }}</p>
+          {% endif %}
+        {% else %}
+          <p class="text-danger"><strong>⚠️ No se encontró tu perfil extendido.</strong></p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="text-end mt-4">
+      <a href="{% url 'home' %}" class="btn btn-secondary">Volver al inicio</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
