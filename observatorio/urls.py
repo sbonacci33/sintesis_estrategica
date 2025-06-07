@@ -8,6 +8,12 @@ urlpatterns = [
     path("informes/", views.InformeListView.as_view(), name="listar_informes"),
     path("buscar/", views.buscar_informes, name="buscar_informes"),
     path("perfil/", views.ver_perfil, name="ver_perfil"),
+    path("perfil/editar/", views.editar_perfil, name="editar_perfil"),
+    path(
+        "perfil/cambiar-clave/",
+        views.CambioPasswordView.as_view(),
+        name="mi_cambio_clave",
+    ),
     path("consulta-ia/", views.consulta_ia, name="consulta_ia"),
     path("medios/", views.MedioAmigoListView.as_view(), name="medios"),
     path("suscribirse/", views.suscribirse, name="suscribirse"),

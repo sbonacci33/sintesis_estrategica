@@ -14,8 +14,11 @@
         <p><strong>Usuario:</strong> {{ usuario.username }}</p>
         <p><strong>Email:</strong> {{ usuario.email }}</p>
 
-        <a href="{% url 'password_change' %}" class="btn btn-outline-primary">
+        <a href="{% url 'mi_cambio_clave' %}" class="btn btn-outline-primary">
           <i class="bi bi-key"></i> Cambiar contraseña
+        </a>
+        <a href="{% url 'editar_perfil' %}" class="btn btn-outline-secondary ms-2">
+          <i class="bi bi-pencil"></i> Editar perfil
         </a>
       </div>
 
