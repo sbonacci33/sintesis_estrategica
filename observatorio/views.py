@@ -5,9 +5,10 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
-from decouple import config
+import os
+import openai
 
-from django.conf import settings
+openai.api_key = os.getenv("OPENAI_API_KEY", "")
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -28,7 +29,6 @@ from .forms import (
     SuscriptorForm,
 )
 from .models import (
-    Categoria,
     Comentario,
     ConsultaUsuario,
     Informe,
