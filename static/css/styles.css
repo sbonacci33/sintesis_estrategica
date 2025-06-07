@@ -10848,8 +10848,3 @@ section {
   align-items: center;
 }
 
-.section-title::before {
-  content: "\1F4CC" " ";
-  /* emoji 📌 before each title */
-}
-
