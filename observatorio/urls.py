@@ -16,6 +16,7 @@ urlpatterns = [
     ),
     path("consulta-ia/", views.consulta_ia, name="consulta_ia"),
     path("medios/", views.MedioAmigoListView.as_view(), name="medios"),
+    path("medios/cargar/", views.MedioAmigoCreateView.as_view(), name="crear_medio"),
     path("suscribirse/", views.suscribirse, name="suscribirse"),
     path("logout/", views.logout_view, name="logout_user"),
     path(

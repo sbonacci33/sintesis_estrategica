@@ -11,6 +11,14 @@
     Creemos en el valor del intercambio, la colaboración y la construcción colectiva de conocimiento.
   </p>
 
+  {% if user.is_superuser %}
+    <div class="mb-3 text-end">
+      <a href="{% url 'crear_medio' %}" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Cargar nueva nota
+      </a>
+    </div>
+  {% endif %}
+
   {% if medios %}
     <div class="row">
       {% for medio in medios %}
@@ -22,9 +30,10 @@
                   {{ medio.titulo }}
                 </a>
               </h5>
-              {% if medio.resumen %}
-                <p class="card-text text-muted">{{ medio.resumen }}</p>
-              {% endif %}
+              <p class="text-muted mb-1">{{ medio.autor }} - {{ medio.fecha }}</p>
+              <div class="ratio ratio-16x9">
+                <iframe src="{{ medio.enlace }}" title="{{ medio.titulo }}" allowfullscreen></iframe>
+              </div>
             </div>
           </div>
         </div>

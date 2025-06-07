@@ -23,6 +23,7 @@ from .forms import (
     ComentarioForm,
     CustomUserCreationForm,
     InformeForm,
+    MedioAmigoForm,
     PerfilUsuarioForm,
     SuscriptorForm,
 )
@@ -235,6 +236,23 @@ class MedioAmigoListView(ListView):
     model = MedioAmigo
     template_name = "observatorio/medios.html"
     context_object_name = "medios"
+
+
+class MedioAmigoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    """Carga de una nueva nota de medios externos."""
+
+    model = MedioAmigo
+    form_class = MedioAmigoForm
+    template_name = "observatorio/crear_medio.html"
+    success_url = reverse_lazy("medios")
+    login_url = "/accounts/login/"
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def form_valid(self, form):
+        messages.success(self.request, "✅ Nota guardada con éxito.")
+        return super().form_valid(form)
 
 
 def consulta_ia(request):

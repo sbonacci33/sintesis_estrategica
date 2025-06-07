@@ -9,6 +9,7 @@ from .models import (
     Comentario,
     ConsultaUsuario,
     Informe,
+    MedioAmigo,
     PerfilUsuario,
     Suscriptor,
 )
@@ -47,6 +48,18 @@ class InformeForm(forms.ModelForm):
                 attrs={"class": "form-control", "placeholder": "Autor/a del informe"}
             ),
             "pdf": forms.ClearableFileInput(attrs={"class": "form-control"}),
+        }
+
+
+class MedioAmigoForm(forms.ModelForm):
+    class Meta:
+        model = MedioAmigo
+        fields = ["titulo", "autor", "fecha", "enlace"]
+        widgets = {
+            "titulo": forms.TextInput(attrs={"class": "form-control", "placeholder": "Título"}),
+            "autor": forms.TextInput(attrs={"class": "form-control", "placeholder": "Autor"}),
+            "fecha": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+            "enlace": forms.URLInput(attrs={"class": "form-control", "placeholder": "URL"}),
         }
 
 
