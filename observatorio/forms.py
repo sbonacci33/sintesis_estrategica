@@ -73,7 +73,6 @@ class ConsultaUsuarioForm(forms.ModelForm):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    documento = forms.CharField(max_length=50, label="Número de documento")
 
     class Meta(UserCreationForm.Meta):
         model = User
@@ -82,7 +81,6 @@ class CustomUserCreationForm(UserCreationForm):
             "first_name",
             "last_name",
             "email",
-            "documento",
         )
 
     def clean_password2(self):
