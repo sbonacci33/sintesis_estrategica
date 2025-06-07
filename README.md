@@ -4,7 +4,7 @@ Este es un proyecto desarrollado en el marco del curso **Python Flex de Coderhou
 
 ---
 
-## 📌 Descripción del proyecto
+## Descripción del proyecto
 
 Se trata de un portal institucional en desarrollo, orientado al análisis de datos de consumo. Se propone como una plataforma profesional para publicar informes, organizar información y ofrecer contenido útil a los usuarios.
 
