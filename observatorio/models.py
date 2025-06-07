@@ -81,6 +81,8 @@ class MedioAmigo(models.Model):
     """Enlaces o resúmenes de medios externos."""
 
     titulo = models.CharField(max_length=200)
+    autor = models.CharField(max_length=100)
+    fecha = models.DateField()
     enlace = models.URLField()
     resumen = models.TextField(blank=True)
 
