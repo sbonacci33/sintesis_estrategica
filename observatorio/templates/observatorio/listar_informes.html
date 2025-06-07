@@ -3,7 +3,7 @@
 
 {% block content %}
   <div class="container my-5">
-    <h2>Publicaciones</h2>
+    <h2 class="section-title">Publicaciones</h2>
     {% if user.is_superuser %}
       <div class="mb-3">
         <a href="{% url 'crear_informe' %}" class="btn btn-primary">Crear nuevo contenido</a>
