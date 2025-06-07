@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView
 from decouple import config
 
 from django.conf import settings
@@ -18,7 +19,13 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .forms import ComentarioForm, CustomUserCreationForm, InformeForm, SuscriptorForm
+from .forms import (
+    ComentarioForm,
+    CustomUserCreationForm,
+    InformeForm,
+    PerfilUsuarioForm,
+    SuscriptorForm,
+)
 from .models import (
     Categoria,
     Comentario,
@@ -35,6 +42,37 @@ def ver_perfil(request):
         "usuario": request.user,
         "perfil": perfil,
     })
+
+
+@login_required
+def editar_perfil(request):
+    perfil = getattr(request.user, "perfilusuario", None)
+    if perfil is None:
+        perfil = PerfilUsuario.objects.create(user=request.user)
+
+    if request.method == "POST":
+        form = PerfilUsuarioForm(request.POST, instance=perfil)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "✅ Perfil actualizado con éxito.")
+            return redirect("ver_perfil")
+    else:
+        form = PerfilUsuarioForm(instance=perfil)
+
+    return render(
+        request,
+        "observatorio/editar_perfil.html",
+        {"form": form},
+    )
+
+
+class CambioPasswordView(LoginRequiredMixin, PasswordChangeView):
+    template_name = "observatorio/cambiar_password.html"
+    success_url = reverse_lazy("ver_perfil")
+
+    def form_valid(self, form):
+        messages.success(self.request, "✅ Contraseña modificada correctamente.")
+        return super().form_valid(form)
 
 
 def home(request):

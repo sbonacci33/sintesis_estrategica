@@ -4,7 +4,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
-from .models import Categoria, Comentario, ConsultaUsuario, Informe, Suscriptor
+from .models import (
+    Categoria,
+    Comentario,
+    ConsultaUsuario,
+    Informe,
+    PerfilUsuario,
+    Suscriptor,
+)
 
 
 class CategoriaForm(forms.ModelForm):
@@ -112,4 +119,22 @@ class ComentarioForm(forms.ModelForm):
                     "placeholder": "Escribí tu comentario aquí",
                 }
             )
+        }
+
+
+class PerfilUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = PerfilUsuario
+        fields = ["biografia", "fecha_nacimiento"]
+        widgets = {
+            "biografia": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": 4,
+                    "placeholder": "Contanos algo sobre vos",
+                }
+            ),
+            "fecha_nacimiento": forms.DateInput(
+                attrs={"class": "form-control", "type": "date"}
+            ),
         }
