@@ -20,10 +20,11 @@ class Informe(models.Model):
     titulo = models.CharField(max_length=200, db_index=True)
     autor = models.CharField(max_length=100, db_index=True)
     resumen = models.TextField(db_index=True)
+    palabras_clave = models.CharField(max_length=200, blank=True)
     contenido = models.TextField()
     pdf = models.FileField(upload_to="informes_pdf/", blank=True, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    fecha = models.DateField(auto_now_add=True)
+    fecha = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["-fecha"]

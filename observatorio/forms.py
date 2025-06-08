@@ -16,10 +16,21 @@ from .models import (
 class InformeForm(forms.ModelForm):
     class Meta:
         model = Informe
-        fields = ["titulo", "resumen", "contenido", "categoria", "autor", "pdf"]
+        fields = [
+            "titulo",
+            "resumen",
+            "palabras_clave",
+            "contenido",
+            "categoria",
+            "autor",
+            "pdf",
+        ]
         widgets = {
             "titulo": forms.TextInput(attrs={"class": "form-control", "placeholder": "Título del informe"}),
             "resumen": forms.Textarea(attrs={"class": "form-control", "placeholder": "Resumen del contenido", "rows": 3}),
+            "palabras_clave": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Palabras clave"}
+            ),
             "contenido": forms.Textarea(attrs={"class": "form-control", "placeholder": "Texto completo del informe", "rows": 8}),
             "categoria": forms.Select(attrs={"class": "form-select"}),
             "autor": forms.TextInput(attrs={"class": "form-control", "placeholder": "Autor/a del informe"}),
