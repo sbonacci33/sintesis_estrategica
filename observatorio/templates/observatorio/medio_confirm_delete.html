@@ -1,0 +1,15 @@
+{% extends 'observatorio/base.html' %}
+{% block title %}Eliminar nota{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h3 class="mb-4">¿Estás seguro de que querés eliminar esta nota?</h3>
+  <p><strong>{{ object.titulo }}</strong> publicada el {{ object.fecha }}</p>
+
+  <form method="post">
+    {% csrf_token %}
+    <a href="{% url 'medios' %}" class="btn btn-secondary">Cancelar</a>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+  </form>
+</div>
+{% endblock %}

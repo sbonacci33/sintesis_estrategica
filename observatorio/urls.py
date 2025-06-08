@@ -22,6 +22,8 @@ urlpatterns = [
     # Medios
     path("medios/", views.MedioAmigoListView.as_view(), name="medios"),
     path("medios/cargar/", views.MedioAmigoCreateView.as_view(), name="crear_medio"),
+    path("medios/<int:pk>/editar/", views.MedioAmigoUpdateView.as_view(), name="editar_medio"),
+    path("medios/<int:pk>/eliminar/", views.MedioAmigoDeleteView.as_view(), name="eliminar_medio"),
 
     # Suscripciones y servicios
     path("consulta-ia/", views.consulta_ia, name="consulta_ia"),

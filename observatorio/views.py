@@ -248,7 +248,24 @@ class MedioAmigoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         messages.success(self.request, "✅ Nota guardada con éxito.")
         return super().form_valid(form)
 
+class MedioAmigoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = MedioAmigo
+    form_class = MedioAmigoForm
+    template_name = "observatorio/crear_medio.html"
+    success_url = reverse_lazy("medios")
 
+    def test_func(self):
+        return self.request.user.is_superuser
+    
+class MedioAmigoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = MedioAmigo
+    template_name = "observatorio/medio_confirm_delete.html"
+    success_url = reverse_lazy("medios")
+
+    def test_func(self):
+        return self.request.user.is_superuser
+    
+    
 def consulta_ia(request):
     """Espacio reservado para futura integración con IA."""
     mensaje = "🚧 Esta funcionalidad estará disponible próximamente. Estamos trabajando en ello."
