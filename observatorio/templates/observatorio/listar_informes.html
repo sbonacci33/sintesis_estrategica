@@ -19,6 +19,9 @@
                 <h5 class="card-title">{{ informe.titulo }}</h5>
                 <p class="mb-1"><strong>Autor:</strong> {{ informe.autor }}</p>
                 <p class="card-text text-muted">{{ informe.resumen|truncatewords:30 }}</p>
+                {% if informe.palabras_clave %}
+                <p class="small text-muted">🔖 {{ informe.palabras_clave }}</p>
+                {% endif %}
                 <span class="badge bg-secondary">{{ informe.categoria }}</span>
               </div>
               <div class="card-footer d-flex justify-content-between align-items-center">

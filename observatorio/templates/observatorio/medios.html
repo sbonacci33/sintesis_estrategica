@@ -27,11 +27,13 @@
         <div class="card shadow-sm h-100 border-0">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">{{ medio.titulo }}</h5>
-            <p class="text-muted mb-2">{{ medio.autor }} — {{ medio.fecha|date:"d/m/Y" }}</p>
+            <p class="mb-1"><i class="bi bi-person"></i> {{ medio.autor }}</p>
+            <p class="mb-1"><i class="bi bi-newspaper"></i> {{ medio.medio }}</p>
+            <p class="text-muted">{{ medio.fecha|date:"d/m/Y" }}</p>
 
             <div class="mt-auto d-flex justify-content-between align-items-center">
               <a href="{{ medio.enlace }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm">
-                <i class="bi bi-box-arrow-up-right"></i> Ver nota completa
+                <i class="bi bi-box-arrow-up-right"></i> Leer nota completa
               </a>
 
               {% if user.is_superuser %}
