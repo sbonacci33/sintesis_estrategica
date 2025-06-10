@@ -21,3 +21,20 @@ class InformeModelTests(TestCase):
             categoria=categoria,
         )
         self.assertEqual(str(informe), "Informe de prueba")
+
+
+class InformeViewsTests(TestCase):
+    def setUp(self):
+        categoria = Categoria.objects.create(nombre="Cat", descripcion="Desc")
+        self.informe = Informe.objects.create(
+            titulo="Título", autor="Autor", resumen="Resumen", contenido="Cont", categoria=categoria
+        )
+
+    def test_listar_informes_status_code(self):
+        response = self.client.get(reverse("listar_informes"))
+        self.assertEqual(response.status_code, 200)
+
+    def test_detalle_informe_status_code(self):
+        url = reverse("detalle_informe", args=[self.informe.id])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
