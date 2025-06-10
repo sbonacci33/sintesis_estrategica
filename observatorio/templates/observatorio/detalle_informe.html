@@ -1,50 +1,66 @@
 {% extends 'observatorio/base.html' %}
-{% block title %}Detalle del Informe{% endblock %}
+{% block title %}{{ informe.titulo }}{% endblock %}
+
 {% block content %}
 <div class="container my-5">
-    <h2 class="section-title">{{ informe.titulo }}</h2>
-    <p><strong>Autor:</strong> {{ informe.autor }}</p>
-    {% if informe.fecha_publicacion %}
-        <p><strong>Fecha de publicación:</strong> {{ informe.fecha_publicacion|date:"d/m/Y" }}</p>
-    {% endif %}
-    <p><strong>Categoría:</strong> {{ informe.categoria }}</p>
-    <hr>
-    <p>{{ informe.resumen }}</p>
-    {% if informe.palabra_clave %}
-        <p><strong>Palabra clave:</strong> {{ informe.palabra_clave }}</p>
-    {% endif %}
+    <h2 class="section-title mb-4">{{ informe.titulo }}</h2>
+
+    <div class="mb-3">
+        <p><strong>Autor:</strong> {{ informe.autor }}</p>
+        {% if informe.fecha_publicacion %}
+            <p><strong>Fecha de publicación:</strong> {{ informe.fecha_publicacion|date:"d/m/Y" }}</p>
+        {% endif %}
+        <p><strong>Categoría:</strong> <span class="badge bg-secondary">{{ informe.categoria }}</span></p>
+        {% if informe.palabra_clave %}
+            <p><strong>Palabra clave:</strong> <span class="text-muted">{{ informe.palabra_clave }}</span></p>
+        {% endif %}
+    </div>
+
+    <div class="mb-4">
+        <h5>Resumen</h5>
+        <p class="text-justify">{{ informe.resumen }}</p>
+    </div>
+
     {% if informe.pdf %}
-        <a href="{{ informe.pdf.url }}" class="btn btn-outline-primary mb-3" download>Descargar PDF</a>
-        <div class="ratio ratio-16x9 mb-3">
-            <iframe src="{{ informe.pdf.url }}" allowfullscreen></iframe>
+        <a href="{{ informe.pdf.url }}" class="btn btn-outline-primary mb-4" download>
+            📄 Descargar PDF
+        </a>
+    {% endif %}
+
+    {% if user.is_superuser %}
+        <div class="mb-4">
+            <a href="{% url 'editar_informe' informe.id %}" class="btn btn-warning me-2">✏️ Editar</a>
+            <a href="{% url 'eliminar_informe' informe.id %}" class="btn btn-danger">🗑️ Eliminar</a>
         </div>
     {% endif %}
-    {% if user.is_superuser %}
-        <a href="{% url 'editar_informe' informe.id %}" class="btn btn-warning me-2">Editar</a>
-        <a href="{% url 'eliminar_informe' informe.id %}" class="btn btn-danger">Eliminar</a>
-    {% endif %}
-    <h4 class="mt-4">Comentarios</h4>
+
+    <hr class="my-4">
+
+    <h4>🗣️ Comentarios</h4>
     {% if comentarios %}
         <ul class="list-group mb-3">
-        {% for c in comentarios %}
-            <li class="list-group-item">
-                <strong>{{ c.usuario.username }}</strong> - {{ c.fecha|date:"d/m/Y H:i" }}<br>
-                {{ c.texto }}
-            </li>
-        {% endfor %}
+            {% for c in comentarios %}
+                <li class="list-group-item">
+                    <strong>{{ c.usuario.username }}</strong> 
+                    <span class="text-muted">- {{ c.fecha|date:"d/m/Y H:i" }}</span><br>
+                    {{ c.texto }}
+                </li>
+            {% endfor %}
         </ul>
     {% else %}
         <p class="text-muted">Aún no hay comentarios.</p>
     {% endif %}
+
     {% if user.is_authenticated %}
         <form method="post" class="mt-3">
             {% csrf_token %}
             {{ form_comentario.as_p }}
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary">💬 Enviar comentario</button>
         </form>
     {% else %}
-        <p class="text-muted">Iniciá sesión para dejar un comentario.</p>
+        <p class="text-muted mt-3">Iniciá sesión para dejar un comentario.</p>
     {% endif %}
-    <a href="{% url 'listar_informes' %}" class="btn btn-secondary mt-3">← Volver a la lista</a>
+
+    <a href="{% url 'listar_informes' %}" class="btn btn-secondary mt-4">← Volver a la lista</a>
 </div>
 {% endblock %}

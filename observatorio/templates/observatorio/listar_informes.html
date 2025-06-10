@@ -4,6 +4,7 @@
 {% block content %}
   <div class="container my-5">
     <h2 class="section-title">Publicaciones</h2>
+
     {% if user.is_superuser %}
       <div class="mb-3">
         <a href="{% url 'crear_informe' %}" class="btn btn-primary">Crear nuevo contenido</a>
@@ -20,9 +21,15 @@
                 <p class="mb-1"><strong>Autor:</strong> {{ informe.autor }}</p>
                 <p class="card-text text-muted">{{ informe.resumen|truncatewords:30 }}</p>
                 {% if informe.palabra_clave %}
-                <p class="small text-muted">🔖 {{ informe.palabra_clave }}</p>
+                  <p class="small text-muted">🔖 {{ informe.palabra_clave }}</p>
                 {% endif %}
                 <span class="badge bg-secondary">{{ informe.categoria }}</span>
+
+                {% if informe.pdf %}
+                  <div class="mt-3">
+                    <a class="btn btn-outline-primary btn-sm" href="{{ informe.pdf.url }}" target="_blank">📄 Descargar PDF</a>
+                  </div>
+                {% endif %}
               </div>
               <div class="card-footer d-flex justify-content-between align-items-center">
                 <small class="text-muted">📅 {{ informe.fecha|date:"d/m/Y" }}</small>

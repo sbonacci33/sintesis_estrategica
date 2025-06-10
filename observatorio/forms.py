@@ -19,7 +19,7 @@ class InformeForm(forms.ModelForm):
         fields = [
             "titulo",
             "resumen",
-            "palabra_clave",
+            "palabras_clave",
             "autor",
             "categoria",
             "fecha_publicacion",
@@ -28,7 +28,7 @@ class InformeForm(forms.ModelForm):
         widgets = {
             "titulo": forms.TextInput(attrs={"class": "form-control", "placeholder": "Título del informe"}),
             "resumen": forms.Textarea(attrs={"class": "form-control", "placeholder": "Resumen del contenido", "rows": 3}),
-            "palabra_clave": forms.TextInput(attrs={"class": "form-control", "placeholder": "Palabra clave"}),
+            "palabras_clave": forms.TextInput(attrs={"class": "form-control", "placeholder": "Palabra clave"}),
             "autor": forms.TextInput(attrs={"class": "form-control", "placeholder": "Autor/a del informe"}),
             "categoria": forms.Select(attrs={"class": "form-control"}),
             "fecha_publicacion": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
