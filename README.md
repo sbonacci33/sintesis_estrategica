@@ -128,8 +128,11 @@ seguro:
 - `SECRET_KEY`: clave secreta de Django.
 - `DJANGO_DEBUG`: establecé `False` para desactivar el modo debug.
 - `ALLOWED_HOSTS`: lista de hosts permitidos separada por espacios.
+- `OPENAI_API_KEY`: necesaria para usar la sección de consulta a la IA.
 
 Si no se definen, se usarán valores por defecto pensados para desarrollo.
+En particular, si omitís `OPENAI_API_KEY` la función de consultas a la IA
+permanecerá inactiva.
 
 ---
 
