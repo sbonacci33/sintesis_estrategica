@@ -11,8 +11,8 @@
             <p><strong>Fecha de publicación:</strong> {{ informe.fecha_publicacion|date:"d/m/Y" }}</p>
         {% endif %}
         <p><strong>Categoría:</strong> <span class="badge bg-secondary">{{ informe.categoria }}</span></p>
-        {% if informe.palabra_clave %}
-            <p><strong>Palabra clave:</strong> <span class="text-muted">{{ informe.palabra_clave }}</span></p>
+        {% if informe.palabras_clave %}
+            <p><strong>Palabras clave:</strong> <span class="text-muted">{{ informe.palabras_clave }}</span></p>
         {% endif %}
     </div>
 

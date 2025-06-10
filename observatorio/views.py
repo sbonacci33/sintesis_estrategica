@@ -5,9 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
-from decouple import config
 
-from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
@@ -123,7 +121,7 @@ class InformeListView(ListView):
     context_object_name = "informes"
 
     def get_queryset(self):
-        return Informe.objects.select_related("categoria").all().order_by("-fecha")
+        return Informe.objects.select_related("categoria").order_by("-fecha")
 
 
 def buscar_informes(request):

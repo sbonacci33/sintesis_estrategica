@@ -17,7 +17,7 @@ class InformeModelTests(TestCase):
             titulo="Informe de prueba",
             autor="Autor",
             resumen="Resumen",
-            palabra_clave="prueba",
+            palabras_clave="prueba",
             categoria=categoria,
         )
         self.assertEqual(str(informe), "Informe de prueba")
@@ -30,7 +30,7 @@ class InformeViewsTests(TestCase):
             titulo="Título",
             autor="Autor",
             resumen="Resumen",
-            palabra_clave="clave",
+            palabras_clave="clave",
             categoria=categoria,
         )
 
