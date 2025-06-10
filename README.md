@@ -38,6 +38,42 @@ Accedé al panel desde `/admin/`.
 
 ---
 
+## 🚀 Instalación y uso
+
+1. **Cloná el repositorio** y creá un entorno virtual:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   ```
+
+2. **Instalá las dependencias** definidas en `requirements.txt`:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Aplicá las migraciones** y creá un superusuario (opcional):
+
+   ```bash
+   python manage.py migrate
+   python manage.py createsuperuser
+   ```
+
+4. **Ejecutá el servidor de desarrollo**:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+5. **Pruebas automáticas**:
+
+   ```bash
+   python manage.py test
+   ```
+
+---
+
 ## 🧱 Estructura del proyecto
 
 El proyecto está organizado en distintas apps de Django:
