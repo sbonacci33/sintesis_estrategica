@@ -4,19 +4,20 @@
 <div class="container my-5">
     <h2 class="section-title">{{ informe.titulo }}</h2>
     <p><strong>Autor:</strong> {{ informe.autor }}</p>
-    <p><strong>Fecha:</strong> {{ informe.fecha|date:"d/m/Y H:i" }}</p>
+    {% if informe.fecha_publicacion %}
+        <p><strong>Fecha de publicación:</strong> {{ informe.fecha_publicacion|date:"d/m/Y" }}</p>
+    {% endif %}
     <p><strong>Categoría:</strong> {{ informe.categoria }}</p>
     <hr>
     <p>{{ informe.resumen }}</p>
-    {% if informe.palabras_clave %}
-        <p><strong>Palabras clave:</strong> {{ informe.palabras_clave }}</p>
+    {% if informe.palabra_clave %}
+        <p><strong>Palabra clave:</strong> {{ informe.palabra_clave }}</p>
     {% endif %}
     {% if informe.pdf %}
-        {% if user.is_authenticated %}
-            <a href="{{ informe.pdf.url }}" class="btn btn-outline-primary mb-3" download>Descargar informe</a>
-        {% else %}
-            <p class="text-muted">Iniciá sesión para descargar el informe.</p>
-        {% endif %}
+        <a href="{{ informe.pdf.url }}" class="btn btn-outline-primary mb-3" download>Descargar PDF</a>
+        <div class="ratio ratio-16x9 mb-3">
+            <iframe src="{{ informe.pdf.url }}" allowfullscreen></iframe>
+        </div>
     {% endif %}
     {% if user.is_superuser %}
         <a href="{% url 'editar_informe' informe.id %}" class="btn btn-warning me-2">Editar</a>
