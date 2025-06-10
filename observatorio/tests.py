@@ -17,7 +17,7 @@ class InformeModelTests(TestCase):
             titulo="Informe de prueba",
             autor="Autor",
             resumen="Resumen",
-            contenido="Contenido",
+            palabra_clave="prueba",
             categoria=categoria,
         )
         self.assertEqual(str(informe), "Informe de prueba")
@@ -27,7 +27,11 @@ class InformeViewsTests(TestCase):
     def setUp(self):
         categoria = Categoria.objects.create(nombre="Cat", descripcion="Desc")
         self.informe = Informe.objects.create(
-            titulo="Título", autor="Autor", resumen="Resumen", contenido="Cont", categoria=categoria
+            titulo="Título",
+            autor="Autor",
+            resumen="Resumen",
+            palabra_clave="clave",
+            categoria=categoria,
         )
 
     def test_listar_informes_status_code(self):

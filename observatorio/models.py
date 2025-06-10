@@ -21,8 +21,9 @@ class Informe(models.Model):
     autor = models.CharField(max_length=100, db_index=True)
     resumen = models.TextField(db_index=True)
     palabras_clave = models.CharField(max_length=200, blank=True)
-    contenido = models.TextField()
+    palabra_clave = models.CharField(max_length=100, blank=True)
     pdf = models.FileField(upload_to="informes_pdf/", blank=True, null=True)
+    fecha_publicacion = models.DateField(blank=True, null=True)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     fecha = models.DateTimeField(auto_now_add=True)
 
