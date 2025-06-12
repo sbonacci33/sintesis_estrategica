@@ -42,35 +42,40 @@ Accedé al panel desde `/admin/`.
 
 1. **Cloná el repositorio** y creá un entorno virtual:
 
-   ```bash
-   python -m venv venv
-   source venv/bin/activate
-   ```
+```bash
+git clone https://github.com/sbonacci33/sintesis_estrategica.git
+cd sintesis_estrategica
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# Linux/Mac
+source venv/bin/activate
+```
 
 2. **Instalá las dependencias** definidas en `requirements.txt`:
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+```bash
+pip install -r requirements.txt
+```
 
 3. **Aplicá las migraciones** y creá un superusuario (opcional):
 
-   ```bash
-   python manage.py migrate
-   python manage.py createsuperuser
-   ```
+```bash
+python manage.py migrate
+python manage.py createsuperuser
+```
 
 4. **Ejecutá el servidor de desarrollo**:
 
-   ```bash
-   python manage.py runserver
-   ```
+```bash
+python manage.py runserver
+```
 
-5. **Pruebas automáticas**:
+5. **Ejecutá las pruebas automáticas (opcional)**:
 
-   ```bash
-   python manage.py test
-   ```
+```bash
+python manage.py test
+```
 
 ---
 
@@ -102,6 +107,7 @@ El proyecto está organizado en distintas apps de Django:
 - Previsualización embebida (iframe).
 - Comentarios públicos para usuarios logueados.
 - Crear, editar o eliminar (requiere autenticación y permisos).
+- Búsqueda por título, resumen o autor.
 
 ### Página "Sobre mí"
 - Descripción académica y profesional.
@@ -109,27 +115,61 @@ El proyecto está organizado en distintas apps de Django:
 - Enlaces externos visuales (LinkedIn, Instagram, web).
 - Bloques visuales diferenciados con Bootstrap.
 
-### Seguridad
-- CSRF activado.
-- Permisos con decoradores (`@login_required`) y mixins (`LoginRequiredMixin`).
-- Validaciones y mensajes en formularios.
+---
+
+## ⚙️ Detalles técnicos
+
+- Modelos optimizados con índices en campos de búsqueda.
+- Uso de **vistas basadas en clases** (CBVs) para crear, listar, actualizar y borrar objetos.
+- Decoradores como `@login_required` para proteger accesos sensibles.
+- Un `LoginRequiredMixin` aplicado a CBVs para controlar permisos de edición.
+- Formularios personalizados para informes, perfiles y comentarios.
+- Validación de formularios con mensajes de éxito o error.
+- Uso de `widget_tweaks` para mejorar la estética en formularios.
 
 ---
 
-## 📁 Repositorio limpio
+## 🧪 Pruebas automáticas
+
+Las pruebas se ejecutan con:
+
+```bash
+python manage.py test
+```
+
+Actualmente incluye tests mínimos de modelos y formularios. Se recomienda ampliar cobertura para futuros despliegues.
+
+---
+
+## 📁 Buenas prácticas de repositorio
 
 - `.gitignore` incluye: `__pycache__/`, `db.sqlite3`, `media/`, `.env`.
-- Se incluye `requirements.txt` actualizado con todas las dependencias necesarias.
-- La base de datos **NO está incluida** en el repositorio.
-- Archivos estáticos (`static/`) y templates organizados y reutilizables.
+- La base de datos **NO** está incluida.
+- Se incluye `requirements.txt` actualizado.
+- Organización clara en `static/`, `templates/` y carpetas de apps.
+- Código limpio, modular y comentado.
 
 ---
 
 ## 🧪 Extras implementados
 
-- 3 CBVs (Class-Based Views) funcionales.
-- 1 mixin + 1 decorador personalizado.
-- Diseño visual cuidado, con estructura clara y responsive.
-- Separación estética en secciones (“Sobre mí”, “Síntesis Estratégica”).
-- Íconos e interacciones con Bootstrap Icons.
+- 3 vistas basadas en clases (CBVs).
+- 1 `LoginRequiredMixin` y 1 decorador personalizado.
+- Comentarios funcionales en informes.
+- Diseño visual cuidado y mobile-friendly.
+- Página "Sobre mí" con secciones diferenciadas visualmente.
+- Enlaces externos con íconos de Bootstrap.
 
+---
+
+## 🔐 Seguridad y entorno
+
+- CSRF activo en todos los formularios.
+- Variables sensibles pueden definirse en `.env`.
+- Si se activa la consulta a IA, se requiere: `OPENAI_API_KEY`.
+
+---
+
+## 📌 Repositorio
+
+📍 GitHub: [https://github.com/sbonacci33/sintesis_estrategica](https://github.com/sbonacci33/sintesis_estrategica)
