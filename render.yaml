@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: sintesis-estrategica
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn SintesisEstrategica.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: SintesisEstrategica.settings
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: sintesis-estrategica.onrender.com
