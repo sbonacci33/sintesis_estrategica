@@ -34,20 +34,23 @@ from .models import (
     PerfilUsuario,
 )
 
+
 @login_required
 def ver_perfil(request):
     perfil = getattr(request.user, "perfilusuario", None)
-    return render(request, "observatorio/perfil.html", {
-        "usuario": request.user,
-        "perfil": perfil,
-    })
+    return render(
+        request,
+        "observatorio/perfil.html",
+        {
+            "usuario": request.user,
+            "perfil": perfil,
+        },
+    )
 
 
 @login_required
 def editar_perfil(request):
-    perfil = getattr(request.user, "perfilusuario", None)
-    if perfil is None:
-        perfil = PerfilUsuario.objects.create(user=request.user)
+    perfil, _ = PerfilUsuario.objects.get_or_create(user=request.user)
 
     if request.method == "POST":
         form = PerfilUsuarioForm(request.POST, instance=perfil)
@@ -131,7 +134,7 @@ def buscar_informes(request):
     if request.method == "GET":
         termino = request.GET.get("termino", "").strip()
         if termino:
-            resultados = (
+            consulta = (
                 Informe.objects.select_related("categoria")
                 .filter(
                     Q(titulo__icontains=termino)
@@ -140,6 +143,7 @@ def buscar_informes(request):
                 )
                 .order_by("-fecha")
             )
+            resultados = list(consulta)
 
             # Guarda la búsqueda
             ConsultaUsuario.objects.create(termino_buscado=termino)
@@ -173,11 +177,13 @@ class InformeDetailView(DetailView):
     pk_url_kwarg = "informe_id"
 
     def get_queryset(self):
-        return Informe.objects.select_related("categoria")
+        return Informe.objects.select_related("categoria").prefetch_related(
+            "comentarios__usuario"
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["comentarios"] = self.object.comentarios.select_related("usuario")
+        context["comentarios"] = self.object.comentarios.all()
         if self.request.user.is_authenticated:
             context["form_comentario"] = ComentarioForm()
         return context
@@ -246,6 +252,7 @@ class MedioAmigoCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         messages.success(self.request, "✅ Nota guardada con éxito.")
         return super().form_valid(form)
 
+
 class MedioAmigoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = MedioAmigo
     form_class = MedioAmigoForm
@@ -254,7 +261,8 @@ class MedioAmigoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         return self.request.user.is_superuser
-    
+
+
 class MedioAmigoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = MedioAmigo
     template_name = "observatorio/medio_confirm_delete.html"
@@ -262,8 +270,8 @@ class MedioAmigoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def test_func(self):
         return self.request.user.is_superuser
-    
-    
+
+
 def consulta_ia(request):
     """Espacio reservado para futura integración con IA."""
     mensaje = "🚧 Esta funcionalidad estará disponible próximamente. Estamos trabajando en ello."
